@@ -136,6 +136,54 @@
     scrollToSlide(Math.min(idx + 1, lastSlideIndex));
   });
 
+  // ---- Background Music ----
+  const bgMusic  = document.getElementById('bgMusic');
+  const musicBtn = document.getElementById('musicBtn');
+  const musicIcon = document.getElementById('musicIcon');
+
+  bgMusic.volume = 0.45;
+
+  function setPlaying(isPlaying) {
+    if (isPlaying) {
+      musicIcon.textContent = '♪';
+      musicBtn.classList.add('playing');
+      musicBtn.setAttribute('aria-label', 'Matikan musik');
+    } else {
+      musicIcon.textContent = '♩';
+      musicBtn.classList.remove('playing');
+      musicBtn.setAttribute('aria-label', 'Nyalakan musik');
+    }
+  }
+
+  // Try autoplay immediately
+  bgMusic.play().then(() => {
+    setPlaying(true);
+  }).catch(() => {
+    // Autoplay blocked — wait for first user interaction
+    setPlaying(false);
+    const playOnInteraction = () => {
+      bgMusic.play().then(() => {
+        setPlaying(true);
+      }).catch(() => {});
+      document.removeEventListener('click', playOnInteraction);
+      document.removeEventListener('touchstart', playOnInteraction);
+      document.removeEventListener('keydown', playOnInteraction);
+    };
+    document.addEventListener('click', playOnInteraction, { once: true });
+    document.addEventListener('touchstart', playOnInteraction, { once: true });
+    document.addEventListener('keydown', playOnInteraction, { once: true });
+  });
+
+  musicBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (bgMusic.paused) {
+      bgMusic.play().then(() => setPlaying(true)).catch(() => {});
+    } else {
+      bgMusic.pause();
+      setPlaying(false);
+    }
+  });
+
   // ---- Init ----
   updateScrollArrow(0);
   // Trigger first slide in-view manually in case observer fires before load

@@ -655,3 +655,60 @@ body {
     line-height: 1.6;
   }
 }
+
+/* ==========================================
+   MUSIC TOGGLE BUTTON
+   ========================================== */
+.music-btn {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  z-index: 100;
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 240, 244, 0.25);
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
+  outline: none;
+}
+
+.music-btn:hover {
+  background: rgba(184, 197, 255, 0.15);
+  border-color: rgba(184, 197, 255, 0.45);
+  transform: scale(1.08);
+}
+
+.music-btn:active {
+  transform: scale(0.95);
+}
+
+.music-icon {
+  font-size: 1.1rem;
+  color: var(--lavender);
+  line-height: 1;
+  transition: color 0.3s ease;
+  user-select: none;
+}
+
+/* Playing state — soft pulse ring */
+.music-btn.playing {
+  border-color: rgba(184, 197, 255, 0.5);
+  background: rgba(184, 197, 255, 0.1);
+  animation: musicPulse 2.5s ease-in-out infinite;
+}
+
+.music-btn.playing .music-icon {
+  color: var(--lavender-soft);
+}
+
+@keyframes musicPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(184, 197, 255, 0.25); }
+  50%       { box-shadow: 0 0 0 7px rgba(184, 197, 255, 0); }
+}
