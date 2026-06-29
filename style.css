@@ -1,0 +1,657 @@
+/* ==========================================
+   YAKULT SLIDESHOW — style.css
+   ========================================== */
+
+/* --- Reset & Base ---- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --pink-base:        #f2a7c0;
+  --pink-light:       #fce4ec;
+  --pink-deep:        #d4607a;
+  --pink-dark:        #8b2a45;
+  --lavender:         #b8c5ff;
+  --lavender-soft:    #d4dbff;
+  --sky-blue:         #a8d8ea;
+  --night-blue:       #1a1a3e;
+  --cream:            #fff5f7;
+  --cream-soft:       #ffe8ef;
+  --white:            #ffffff;
+  --text-main:        #fff0f4;
+  --text-soft:        rgba(255,240,244,0.75);
+  --text-muted:       rgba(255,240,244,0.5);
+  --font-serif:       'Playfair Display', Georgia, serif;
+  --font-sans:        'DM Sans', system-ui, sans-serif;
+  --transition:       0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--night-blue);
+  color: var(--text-main);
+  overflow: hidden;
+  height: 100dvh;
+}
+
+/* ==========================================
+   SLIDESHOW CONTAINER — Scroll Snap
+   ========================================== */
+.slideshow-container {
+  height: 100dvh;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  /* Hide scrollbar */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.slideshow-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* ==========================================
+   SLIDES
+   ========================================== */
+.slide {
+  position: relative;
+  width: 100%;
+  height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  scroll-snap-align: start;
+  overflow: hidden;
+  padding: 0;
+}
+
+/* Noise texture overlay */
+.slide-noise {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.06'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.5;
+}
+
+/* ---- Per-slide gradient backgrounds ---- */
+
+/* SLIDE 0 — Bright hot pink, vibrant & playful */
+.slide-0 {
+  background: linear-gradient(135deg, #ff2d78 0%, #ff6fa3 40%, #ffaac8 70%, #ff85b3 100%);
+}
+.slide-0::before {
+  background: linear-gradient(to bottom, rgba(255,255,255,0.12) 0%, transparent 100%);
+}
+.slide-0::after {
+  background: linear-gradient(to top, rgba(200,0,80,0.25) 0%, transparent 100%);
+}
+
+/* SLIDE 1 — Rosé pink, slightly softer, dreamy */
+.slide-1 {
+  background: linear-gradient(160deg, #ff4f8b 0%, #ff80b0 35%, #ffb3cc 65%, #fce4ec 100%);
+}
+.slide-1::before {
+  background: linear-gradient(to bottom, rgba(255,255,255,0.1) 0%, transparent 100%);
+}
+.slide-1::after {
+  background: linear-gradient(to top, rgba(180,0,80,0.2) 0%, transparent 100%);
+}
+
+/* SLIDE 2 — D-Day: Normandy coast, dramatic ocean waves */
+.slide-2 {
+  background-image:
+    linear-gradient(to bottom, rgba(5,2,18,0.82) 0%, rgba(5,2,18,0.72) 40%, rgba(5,2,18,0.88) 100%),
+    url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1920&q=80&fit=crop&auto=format');
+  background-size: cover;
+  background-position: center;
+}
+
+/* SLIDE 3 — Tokyo cherry blossom at night */
+.slide-3 {
+  background-image:
+    linear-gradient(to bottom, rgba(5,2,18,0.80) 0%, rgba(5,2,18,0.68) 40%, rgba(5,2,18,0.88) 100%),
+    url('https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=1920&q=80&fit=crop&auto=format');
+  background-size: cover;
+  background-position: center;
+}
+
+/* SLIDE 4 — Starry night sky: kept as pure CSS (stars animation) */
+.slide-4 {
+  background: radial-gradient(ellipse at 50% 50%, #0d0d2b 0%, #1a1a3e 40%, #0a0a1e 100%);
+}
+
+/* SLIDE 5 — Komorebi: sunlight filtering through forest trees */
+.slide-5 {
+  background-image:
+    linear-gradient(to bottom, rgba(2,8,10,0.80) 0%, rgba(2,8,10,0.70) 40%, rgba(2,8,10,0.88) 100%),
+    url('https://images.unsplash.com/photo-1448375240586-882707db888b?w=1920&q=80&fit=crop&auto=format');
+  background-size: cover;
+  background-position: center;
+}
+
+/* SLIDE 6 — Tokyo Skytree: city lights aerial night view */
+.slide-6 {
+  background-image:
+    linear-gradient(to bottom, rgba(3,0,15,0.78) 0%, rgba(3,0,15,0.62) 40%, rgba(3,0,15,0.86) 100%),
+    url('https://images.unsplash.com/photo-1536098561742-ca998e48cbcc?w=1920&q=80&fit=crop&auto=format');
+  background-size: cover;
+  background-position: center;
+}
+
+/* SLIDE 7 — Mmm / empathy: warm bokeh candle/cafe light */
+.slide-7 {
+  background-image:
+    linear-gradient(to bottom, rgba(12,3,6,0.82) 0%, rgba(12,3,6,0.70) 40%, rgba(12,3,6,0.90) 100%),
+    url('https://images.unsplash.com/photo-1521017432531-fbd92d768814?w=1920&q=80&fit=crop&auto=format');
+  background-size: cover;
+  background-position: center;
+}
+
+/* SLIDE 8 — Radar / scent: lavender flower field */
+.slide-8 {
+  background-image:
+    linear-gradient(to bottom, rgba(5,3,18,0.82) 0%, rgba(5,3,18,0.70) 40%, rgba(5,3,18,0.88) 100%),
+    url('https://images.unsplash.com/photo-1499002238440-d264edd596ec?w=1920&q=80&fit=crop&auto=format');
+  background-size: cover;
+  background-position: center;
+}
+
+/* SLIDE 9 — Neophilia: travel / world exploration, airplane window */
+.slide-9 {
+  background-image:
+    linear-gradient(to bottom, rgba(3,3,18,0.80) 0%, rgba(3,3,18,0.68) 40%, rgba(3,3,18,0.87) 100%),
+    url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1920&q=80&fit=crop&auto=format');
+  background-size: cover;
+  background-position: center;
+}
+
+/* SLIDE 10 — Closing: romantic bokeh sparkle lights */
+.slide-10 {
+  background-image:
+    linear-gradient(to bottom, rgba(10,3,8,0.84) 0%, rgba(10,3,8,0.72) 40%, rgba(10,3,8,0.90) 100%),
+    url('https://images.unsplash.com/photo-1516339901601-2e1b62dc0c45?w=1920&q=80&fit=crop&auto=format');
+  background-size: cover;
+  background-position: center;
+}
+
+/* Top gradient decoration per slide (only for non-image slides) */
+.slide-4::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 40%;
+  background: linear-gradient(to bottom, rgba(184,197,255,0.06) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+.slide-4::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 30%;
+  background: linear-gradient(to top, rgba(0,0,0,0.3) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ==========================================
+   SLIDE CONTENT
+   ========================================== */
+.slide-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 2.5rem 1.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.center-content {
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  height: 100%;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+/* Label */
+.slide-label {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--lavender);
+  border-left: 2px solid var(--lavender);
+  padding-left: 0.6rem;
+  line-height: 1;
+  opacity: 0.9;
+}
+
+/* For pink slides (0 & 1), override text colors to work on bright bg */
+.slide-0 .gabut-text,
+.slide-1 .opening-quote {
+  color: #fff;
+  text-shadow: 0 2px 20px rgba(150,0,60,0.35);
+}
+.slide-0 .scroll-hint-inline {
+  color: rgba(255,255,255,0.65);
+}
+.slide-0 .arrow-bounce {
+  color: rgba(255,255,255,0.9);
+}
+.slide-0 .arrow-icon {
+  border-color: rgba(255,255,255,0.35);
+  color: rgba(255,255,255,0.7);
+  background: rgba(255,255,255,0.1);
+}
+.slide-1 .opening-quote em {
+  color: #ffe0ec;
+}
+
+/* Title */
+.slide-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 8vw, 3.4rem);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--cream);
+  letter-spacing: -0.02em;
+}
+
+/* Body text */
+.slide-body {
+  font-family: var(--font-sans);
+  font-size: clamp(0.88rem, 3.5vw, 1.05rem);
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--text-soft);
+  max-width: 560px;
+}
+.slide-body em {
+  font-style: italic;
+  color: var(--lavender-soft);
+  font-weight: 400;
+}
+
+/* ==========================================
+   SLIDE 0 — Gabut
+   ========================================== */
+.gabut-text {
+  font-family: var(--font-serif);
+  font-size: clamp(1.1rem, 5vw, 1.6rem);
+  font-style: italic;
+  color: var(--cream);
+  text-align: center;
+  line-height: 1.6;
+  max-width: 420px;
+  opacity: 0.9;
+}
+
+.scroll-hint-inline {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--text-muted);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.arrow-bounce {
+  font-size: 1.2rem;
+  animation: arrowBounce 1.8s ease-in-out infinite;
+  color: var(--lavender);
+}
+
+@keyframes arrowBounce {
+  0%, 100% { transform: translateY(0); opacity: 0.5; }
+  50%       { transform: translateY(6px); opacity: 1; }
+}
+
+/* ==========================================
+   SLIDE 1 — Opening Quote
+   ========================================== */
+.opening-quote {
+  font-family: var(--font-serif);
+  font-size: clamp(1.4rem, 6vw, 2.5rem);
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--cream);
+  max-width: 540px;
+  letter-spacing: -0.01em;
+}
+.opening-quote em {
+  color: var(--pink-base);
+  font-style: italic;
+}
+
+/* ==========================================
+   SLIDE 4 — Stars
+   ========================================== */
+.stars-container {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.stars-layer {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 10% 15%, rgba(255,255,255,0.9) 0%, transparent 100%),
+    radial-gradient(1px 1px at 25% 40%, rgba(200,220,255,0.8) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 40% 10%, rgba(255,255,255,0.7) 0%, transparent 100%),
+    radial-gradient(1px 1px at 60% 25%, rgba(255,255,255,0.9) 0%, transparent 100%),
+    radial-gradient(1px 1px at 75% 55%, rgba(200,210,255,0.8) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 85% 20%, rgba(255,255,255,0.6) 0%, transparent 100%),
+    radial-gradient(1px 1px at 90% 70%, rgba(255,255,255,0.8) 0%, transparent 100%),
+    radial-gradient(1px 1px at 15% 75%, rgba(200,220,255,0.7) 0%, transparent 100%),
+    radial-gradient(1px 1px at 50% 80%, rgba(255,255,255,0.6) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 35% 60%, rgba(255,255,255,0.9) 0%, transparent 100%),
+    radial-gradient(1px 1px at 5% 90%, rgba(200,210,255,0.7) 0%, transparent 100%),
+    radial-gradient(1px 1px at 95% 45%, rgba(255,255,255,0.8) 0%, transparent 100%),
+    radial-gradient(1px 1px at 70% 85%, rgba(255,255,255,0.6) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 20% 30%, rgba(200,220,255,0.8) 0%, transparent 100%),
+    radial-gradient(1px 1px at 55% 50%, rgba(255,255,255,0.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 80% 10%, rgba(255,255,255,0.9) 0%, transparent 100%),
+    radial-gradient(1px 1px at 45% 95%, rgba(200,215,255,0.7) 0%, transparent 100%),
+    radial-gradient(1px 1px at 65% 65%, rgba(255,255,255,0.6) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 3% 50%, rgba(255,255,255,0.8) 0%, transparent 100%),
+    radial-gradient(1px 1px at 97% 30%, rgba(200,220,255,0.7) 0%, transparent 100%);
+  background-size: 100% 100%;
+}
+
+.stars-layer.s1 { animation: twinkle 4s ease-in-out infinite alternate; }
+.stars-layer.s2 { animation: twinkle 6s ease-in-out 1s infinite alternate; opacity: 0.7; }
+.stars-layer.s3 { animation: twinkle 5s ease-in-out 2s infinite alternate; opacity: 0.5;
+  background-image:
+    radial-gradient(1px 1px at 12% 22%, rgba(255,255,255,0.6) 0%, transparent 100%),
+    radial-gradient(1px 1px at 33% 88%, rgba(200,220,255,0.7) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 56% 44%, rgba(255,255,255,0.8) 0%, transparent 100%),
+    radial-gradient(1px 1px at 78% 66%, rgba(200,215,255,0.6) 0%, transparent 100%),
+    radial-gradient(1px 1px at 88% 12%, rgba(255,255,255,0.7) 0%, transparent 100%),
+    radial-gradient(1px 1px at 22% 56%, rgba(255,255,255,0.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 44% 34%, rgba(200,220,255,0.8) 0%, transparent 100%);
+}
+
+@keyframes twinkle {
+  0%   { opacity: 0.4; }
+  100% { opacity: 1; }
+}
+
+/* ==========================================
+   SLIDE 10 — Closing
+   ========================================== */
+.closing-content {
+  gap: 2.5rem;
+}
+
+.closing-text {
+  font-family: var(--font-serif);
+  font-size: clamp(1.3rem, 5.5vw, 2.2rem);
+  font-weight: 600;
+  line-height: 1.7;
+  color: var(--cream);
+  letter-spacing: -0.01em;
+}
+.closing-text em {
+  font-style: italic;
+  color: var(--pink-base);
+  font-size: 1.2em;
+}
+
+.from-signature {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(0.95rem, 3vw, 1.15rem);
+  color: var(--lavender);
+  letter-spacing: 0.05em;
+  position: relative;
+  padding-top: 1.2rem;
+}
+.from-signature::before {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 1px;
+  background: var(--lavender);
+  margin: 0 auto 1rem;
+  opacity: 0.5;
+}
+
+/* ==========================================
+   SCROLL DOTS
+   ========================================== */
+.scroll-dots {
+  position: fixed;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 100;
+  transition: opacity 0.4s ease;
+}
+
+.scroll-dots ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.scroll-dots ul li button {
+  display: block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255,240,244,0.25);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.scroll-dots ul li button.active {
+  background: var(--lavender);
+  transform: scale(1.5);
+  box-shadow: 0 0 8px var(--lavender);
+}
+
+.scroll-dots ul li button:hover {
+  background: rgba(255,240,244,0.6);
+}
+
+/* ==========================================
+   SCROLL ARROW
+   ========================================== */
+.scroll-arrow {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.scroll-arrow.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%) translateY(10px);
+}
+
+.arrow-icon {
+  width: 2.2rem;
+  height: 2.2rem;
+  border: 1px solid rgba(255,240,244,0.25);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  color: var(--text-muted);
+  animation: floatArrow 2.2s ease-in-out infinite;
+  backdrop-filter: blur(4px);
+  background: rgba(255,255,255,0.04);
+}
+
+@keyframes floatArrow {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(5px); }
+}
+
+/* ==========================================
+   ENTRANCE ANIMATIONS
+   ========================================== */
+.slide-label,
+.slide-title,
+.slide-body,
+.opening-quote,
+.gabut-text,
+.closing-text,
+.from-signature,
+.scroll-hint-inline,
+.stars-container {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.stars-container {
+  transform: none;
+}
+
+/* Staggered delays */
+.slide.in-view .slide-label         { transition-delay: 0.1s; }
+.slide.in-view .slide-title         { transition-delay: 0.25s; }
+.slide.in-view .slide-body          { transition-delay: 0.42s; }
+.slide.in-view .opening-quote       { transition-delay: 0.15s; }
+.slide.in-view .gabut-text          { transition-delay: 0.1s; }
+.slide.in-view .scroll-hint-inline  { transition-delay: 0.4s; }
+.slide.in-view .closing-text        { transition-delay: 0.1s; }
+.slide.in-view .from-signature      { transition-delay: 0.45s; }
+.slide.in-view .stars-container     { transition-delay: 0s; }
+
+.slide.in-view .slide-label,
+.slide.in-view .slide-title,
+.slide.in-view .slide-body,
+.slide.in-view .opening-quote,
+.slide.in-view .gabut-text,
+.slide.in-view .closing-text,
+.slide.in-view .from-signature,
+.slide.in-view .scroll-hint-inline,
+.slide.in-view .stars-container {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Accent glow behind title on in-view */
+.slide.in-view .slide-title::after {
+  content: '';
+  display: block;
+  width: 50px;
+  height: 2px;
+  margin-top: 0.7rem;
+  background: linear-gradient(90deg, var(--lavender), transparent);
+  border-radius: 2px;
+}
+
+/* ==========================================
+   DECORATIVE CORNER ELEMENT
+   ========================================== */
+.slide-content::before {
+  content: '';
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  width: 60px;
+  height: 60px;
+  border-top: 1px solid rgba(184,197,255,0.12);
+  border-right: 1px solid rgba(184,197,255,0.12);
+  border-radius: 0 6px 0 0;
+  pointer-events: none;
+}
+
+.center-content::before {
+  display: none;
+}
+
+/* ==========================================
+   RESPONSIVE — MOBILE FIRST
+   ========================================== */
+@media (max-width: 480px) {
+  .slide-content {
+    padding: 2rem 1.4rem;
+    gap: 1rem;
+  }
+
+  .slide-title {
+    font-size: clamp(1.8rem, 9vw, 2.5rem);
+  }
+
+  .slide-body {
+    font-size: 0.9rem;
+    line-height: 1.75;
+  }
+
+  .opening-quote {
+    font-size: clamp(1.2rem, 7vw, 1.8rem);
+    padding: 0 0.5rem;
+  }
+
+  .closing-text {
+    font-size: clamp(1.1rem, 6.5vw, 1.7rem);
+    padding: 0 0.5rem;
+  }
+
+  .gabut-text {
+    font-size: clamp(1rem, 5.5vw, 1.3rem);
+    padding: 0 0.5rem;
+  }
+
+  .scroll-dots {
+    right: 0.5rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .slide-content {
+    padding: 1.8rem 1.2rem;
+  }
+}
+
+/* Landscape mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+  .slide-content {
+    padding: 1.2rem 2rem;
+    gap: 0.7rem;
+  }
+  .slide-title {
+    font-size: 1.6rem;
+  }
+  .slide-body {
+    font-size: 0.82rem;
+    line-height: 1.6;
+  }
+}
